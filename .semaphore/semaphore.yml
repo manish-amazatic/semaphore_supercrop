@@ -10,4 +10,4 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - 'checkout && docker run -v .:./src:Z -e ROBOT_OPTIONS=''--name SuiteName'' -e ROBOT_TESTS_DIR=./src/TestCases -e ROBOT_REPORTS_DIR=./src/results ppodgorsek/robot-framework:latest'
+            - 'checkout && mkdir -p ${HOME}/results && docker run -v ${PWD}:/opt/robotframework/test:Z -v ${HOME}/results:/opt/robotframework/reports:Z -e ROBOT_OPTIONS=''--name SuiteName'' -e ROBOT_TESTS_DIR=/opt/robotframework/test/TestCases ppodgorsek/robot-framework:latest'

@@ -17,7 +17,6 @@ blocks:
         always:
           commands:
             - 'ls -lah ${HOME}/results/'
-            - 'test-results publish ${HOME}/results/output.xml'
             - 'test-results publish ${HOME}/results/robot.xml'
       prologue:
         commands:

@@ -10,8 +10,9 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - 'checkout'
+            - checkout
             - 'mkdir -p ${HOME}/results'
+            - 'ls -lah ${HOME}/results/'
             - 'docker run -v ${PWD}:/opt/robotframework/test:Z -v ${HOME}/results:/opt/robotframework/reports:Z -e ROBOT_OPTIONS=''--name SuiteName'' -e ROBOT_TESTS_DIR=/opt/robotframework/test/TestCases --user=1001:1001 ppodgorsek/robot-framework:latest'
       epilogue:
         always:

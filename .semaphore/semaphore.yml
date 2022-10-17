@@ -12,13 +12,22 @@ blocks:
           commands:
             - checkout
             - 'mkdir -p ${HOME}/results'
-            - 'docker run -v ${PWD}:/opt/robotframework/test:Z -v ${HOME}/results:/opt/robotframework/reports:Z -e ROBOT_OPTIONS=''--name SuiteName'' -e ROBOT_TESTS_DIR=/opt/robotframework/test/TestCases --user=1001:1001 ppodgorsek/robot-framework:latest'
-            - 'ls -lah ${HOME}/results/'
+            - 'docker run -v ${PWD}:/opt/robotframework/test:Z -v ${HOME}/results:/opt/robotframework/reports:Z -e ROBOT_OPTIONS=''--name SuiteName -x /opt/robotframework/reports/robot.xml'' -e ROBOT_TESTS_DIR=/opt/robotframework/test/TestCases --user=1001:1001 ppodgorsek/robot-framework:latest'
       epilogue:
         always:
           commands:
             - 'ls -lah ${HOME}/results/'
             - 'test-results publish ${HOME}/results/output.xml'
+            - 'test-results publish ${HOME}/results/robot.xml'
       prologue:
         commands:
           - docker pull ppodgorsek/robot-framework
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu2004
+after_pipeline:
+  task:
+    jobs:
+      - name: 'Job #1'
+        commands: []
